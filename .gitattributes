@@ -1,0 +1,15 @@
+*        text=auto eol=lf
+*.java   text eol=lf
+*.gradle text eol=lf
+*.sh     text eol=lf
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+
+
+*.jar   binary
+*.class binary
+*.exe   binary
+*.zip   binary
+*.bin   binary
+*.input binary
+*.dat   binary

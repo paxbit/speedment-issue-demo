@@ -1,0 +1,37 @@
+buildscript {
+
+  repositories {
+    jcenter()
+  }
+
+}
+
+group 'paxbit.speedment.demo'
+version '1.0-SNAPSHOT'
+
+
+wrapper {
+  gradleVersion = '4.4.1'
+}
+
+
+ext {
+  speedmentVersion = "3.1.1"
+
+  javaSourcePath = "src/main/java"
+  mainResourcesPath = "src/main/resources"
+  generatedResourcesPath = "src/main/generated"
+
+}
+
+subprojects {
+
+  tasks.withType(Exec) {
+    doFirst {
+      println commandLine
+    }
+  }
+
+}
+
+

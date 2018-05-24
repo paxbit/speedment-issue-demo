@@ -1,0 +1,109 @@
+import buildsrc.speedment.gradle.SpeedmentGenerate
+
+import java.nio.file.Paths
+
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath fileTree("$rootDir/buildSrc/build/libs") { include("*.jar") exclude("*sources.jar")}
+  }
+
+}
+
+plugins {
+  id 'java'
+}
+
+group 'paxbit.speedment.demo.json-alias-mismatch'
+version '1.0-SNAPSHOT'
+
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+  jcenter()
+}
+
+def generatedSourcesPath = "src/main/generated"
+
+
+sourceSets {
+  main {
+    java {      srcDirs(rootProject.ext.javaSourcePath, generatedSourcesPath)
+    }
+  }
+}
+
+dependencies {
+  
+  compile "com.speedment:generator:${speedmentVersion}"
+  compile "com.speedment:tool:${speedmentVersion}"
+  compile "com.speedment:runtime:${speedmentVersion}"
+
+  testCompile group: 'junit', name: 'junit', version: '4.12'
+
+}
+
+// From here on its hacky cruft to make the Speedment Generator put its generated classes
+// into the proper src folder, on every platform. I wish Speedment had proper Gradle support
+// through some vendor provided Gradle plugin. There only seems to be an ages old third party one
+// which does not work well with a current Gradle release
+// https://plugins.gradle.org/search?term=speedment
+def xPlatformProjectPath =
+  project(':json-alias-mismatch-demo').projectDir.absolutePath.replace('\\', '/')
+
+def os = System.getProperty("os.name")
+def isWindows = os.contains("Windows")
+
+def speedmentConfigTemplate =
+  "${xPlatformProjectPath}/src/main/json/speedment.json"
+
+def speedmentConfigGenerated =
+  "${xPlatformProjectPath}/src/main/json/speedment-generated.json"
+
+def macSubProjectPathPrefix = "json-alias-mismatch-demo/"
+if (Paths.get("").toAbsolutePath().toString().equals(project(':json-alias-mismatch-demo').projectDir.absolutePath))
+  macSubProjectPathPrefix = ""
+
+// todo fix: absolute paths for Windows, relative paths for everything else > unnecessary
+def speedmentPackageLocation =
+  "${isWindows ? xPlatformProjectPath + "/" : macSubProjectPathPrefix }${generatedSourcesPath}"
+
+ext.speedmentConfigFile = speedmentConfigGenerated
+
+task('createGeneratedSourcesFolder').doLast {
+  file(generatedSourcesPath).mkdirs()
+}
+
+
+task('speedmentGenerateModel').doLast {
+
+  file(speedmentConfigGenerated).delete()
+
+  // replace #packageLocation# placeholder in speedmentConfigTemplate with actual platform specific
+  // absolute location and write result to speedmentConfigGenerated which may then be used by
+  // speedment.Generate task to create model classes.
+  new File(speedmentConfigGenerated).withWriter { w ->
+    new File(speedmentConfigTemplate).eachLine { line ->
+      w << line.replaceAll('#packageLocation#', speedmentPackageLocation) + '\n'
+    }
+  }
+
+  new SpeedmentGenerate().execute(file(speedmentConfigGenerated))
+
+}
+
+compileJava.dependsOn(tasks['speedmentGenerateModel'])
+
+clean.doLast {
+  file(generatedSourcesPath).deleteDir()
+  file(speedmentConfigGenerated).delete()
+}
+
+
+

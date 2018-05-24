@@ -1,0 +1,4 @@
+rootProject.name = 'speedment-issue-demo'
+
+include 'json-alias-mismatch-demo'
+
