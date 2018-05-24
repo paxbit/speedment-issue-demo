@@ -34,7 +34,7 @@ The build will output the generated model classes to:
 1. json-alias-mismatch-demo/src/main/generated/working
 
 The test unit `issue.Test` will try to use both generated models.  
-The test `testSimpleJoinBuildingDoesNotThrowISEWhenUsingAliases` should fail.
+The test `testSimpleJoinBuildingDoesNotThrowISEWhenUsingAliases` should fail.  
 The test `testSimpleJoinBuildingDoesNotThrowISEWhenUsingNoAliases` should work.
      
 ##### Result     
