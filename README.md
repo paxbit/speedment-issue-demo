@@ -3,7 +3,7 @@ This repository is supposed to make it easier for others to replicate Speedment 
 
 ### Sub-Project json-alias-mismatch-demo
 
-**Affected versions: Speedment 3.1.1 Homer only.**
+**Affected releases: Speedment 3.1.1 Homer**
 
 Execute `gradle speedmentGenerateModel` first to generate the model classes mentioned below. 
 
