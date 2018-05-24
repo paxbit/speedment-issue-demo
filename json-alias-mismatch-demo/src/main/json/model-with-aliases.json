@@ -1,0 +1,200 @@
+{
+  "config" : {
+    "speedmentVersion" : "Speedment:3.1.1",
+    "nameProtected" : false,
+    "expanded" : true,
+    "appId" : "9c3a2595-c515-491e-ac95-94e6bd255134",
+    "companyName" : "acme",
+    "name" : "DemoWithAliases",
+    "packageLocation" : "#packageLocation#",
+    "id" : "public",
+    "dbmses" : [
+      {
+        "nameProtected" : true,
+        "expanded" : true,
+        "port" : 5432,
+        "schemas" : [
+          {
+            "nameProtected" : true,
+            "tables" : [
+              {
+                "nameProtected" : true,
+                "expanded" : true,
+                "primaryKeyColumns" : [
+                  {
+                    "expanded" : true,
+                    "name" : "type",
+                    "id" : "type",
+                    "ordinalPosition" : 1,
+                    "enabled" : true
+                  }
+                ],
+                "indexes" : [
+                  {
+                    "expanded" : false,
+                    "unique" : true,
+                    "name" : "cookies_id_uindex",
+                    "indexColumns" : [
+                      {
+                        "orderType" : "ASC",
+                        "expanded" : true,
+                        "name" : "type",
+                        "id" : "type",
+                        "ordinalPosition" : 1
+                      }
+                    ],
+                    "id" : "cookies_id_uindex",
+                    "enabled" : true
+                  },
+                  {
+                    "expanded" : false,
+                    "unique" : true,
+                    "name" : "cookies_pkey",
+                    "indexColumns" : [
+                      {
+                        "orderType" : "ASC",
+                        "expanded" : true,
+                        "name" : "type",
+                        "id" : "type",
+                        "ordinalPosition" : 1
+                      }
+                    ],
+                    "id" : "cookies_pkey",
+                    "enabled" : true
+                  }
+                ],
+                "isView" : false,
+                "columns" : [
+                  {
+                    "databaseType" : "java.lang.String",
+                    "expanded" : true,
+                    "nullable" : false,
+                    "name" : "type",
+                    "id" : "type",
+                    "ordinalPosition" : 1,
+                    "enabled" : true
+                  },
+                  {
+                    "databaseType" : "java.lang.Integer",
+                    "typeMapper" : "com.speedment.runtime.typemapper.primitive.PrimitiveTypeMapper",
+                    "expanded" : true,
+                    "nullable" : false,
+                    "name" : "weight",
+                    "id" : "weight",
+                    "ordinalPosition" : 2,
+                    "enabled" : true
+                  },
+                  {
+                    "databaseType" : "java.lang.Integer",
+                    "typeMapper" : "com.speedment.runtime.typemapper.primitive.PrimitiveTypeMapper",
+                    "expanded" : true,
+                    "nullable" : false,
+                    "name" : "diameter",
+                    "id" : "diameter",
+                    "ordinalPosition" : 3,
+                    "enabled" : true
+                  }
+                ],
+                "name" : "cookie_types",
+                "alias" : "CookieTypeEntity",
+                "id" : "cookie_types",
+                "packageName" : "com.acme.demowithaliases.cookietypes.schema.cookie_types",
+                "enabled" : true
+              },
+              {
+                "nameProtected" : true,
+                "foreignKeys" : [
+                  {
+                    "expanded" : false,
+                    "foreignKeyColumns" : [
+                      {
+                        "foreignDatabaseName" : "demo",
+                        "foreignSchemaName" : "public",
+                        "expanded" : true,
+                        "name" : "owner",
+                        "foreignColumnName" : "type",
+                        "id" : "owner",
+                        "foreignTableName" : "cookie_types",
+                        "ordinalPosition" : 1
+                      }
+                    ],
+                    "name" : "ingredients_cookie_types_type_fk",
+                    "id" : "ingredients_cookie_types_type_fk",
+                    "enabled" : true
+                  }
+                ],
+                "isView" : false,
+                "columns" : [
+                  {
+                    "databaseType" : "java.lang.String",
+                    "expanded" : true,
+                    "nullable" : false,
+                    "name" : "owner",
+                    "id" : "owner",
+                    "ordinalPosition" : 1,
+                    "enabled" : true
+                  },
+                  {
+                    "databaseType" : "java.lang.String",
+                    "expanded" : true,
+                    "nullable" : false,
+                    "name" : "name",
+                    "id" : "name",
+                    "ordinalPosition" : 2,
+                    "enabled" : true
+                  }
+                ],
+                "enabled" : true,
+                "expanded" : true,
+                "primaryKeyColumns" : [
+                  {
+                    "expanded" : true,
+                    "name" : "owner",
+                    "id" : "owner",
+                    "ordinalPosition" : 1,
+                    "enabled" : true
+                  }
+                ],
+                "indexes" : [
+                  {
+                    "expanded" : false,
+                    "unique" : true,
+                    "name" : "ingredients_pkey",
+                    "indexColumns" : [
+                      {
+                        "orderType" : "ASC",
+                        "expanded" : true,
+                        "name" : "owner",
+                        "id" : "owner",
+                        "ordinalPosition" : 1
+                      }
+                    ],
+                    "id" : "ingredients_pkey",
+                    "enabled" : true
+                  }
+                ],
+                "name" : "ingredients",
+                "alias" : "IngredientsEntity",
+                "id" : "ingredients",
+                "packageName" : "com.acme.demowithaliases.cookietypes.schema.ingredients"
+              }
+            ],
+            "expanded" : true,
+            "name" : "public",
+            "alias" : "schemaName",
+            "id" : "public",
+            "enabled" : true
+          }
+        ],
+        "typeName" : "PostgreSQL",
+        "ipAddress" : "127.0.0.1",
+        "name" : "demo",
+        "alias" : "cookieTypes",
+        "id" : "demo",
+        "enabled" : true,
+        "username" : "demo"
+      }
+    ],
+    "enabled" : true
+  }
+}

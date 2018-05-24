@@ -21,6 +21,21 @@ Speedment code generation uses at least two approaches of table identification.
 2. OTOH the generated field descriptors of entity classes (e.g. GeneratedCookieTypeEntity.TYPE) always 
      seem to use the "id" properties for their Identifiers to describe what table they belong to.
      See: `com.acme.issuedemo.cookietypes.schema.cookie_types.generated.GeneratedCookieTypeEntity.Identifier.getTableId()`
+
+##### Run tests
+Run `gradle test`
+
+I prepared two Speedment model descriptors:
+1. json-alias-mismatch-demo/src/main/json/model-with-aliases.json    (**broken**)
+1. json-alias-mismatch-demo/src/main/json/model-without-aliases.json (**working**)
+
+The build will output the generated model classes to:
+1. json-alias-mismatch-demo/src/main/generated/broken
+1. json-alias-mismatch-demo/src/main/generated/working
+
+The test unit `issue.Test` will try to use both generated models.  
+The test `testSimpleJoinBuildingDoesNotThrowISEWhenUsingAliases` should fail.
+The test `testSimpleJoinBuildingDoesNotThrowISEWhenUsingNoAliases` should work.
      
 ##### Result     
 

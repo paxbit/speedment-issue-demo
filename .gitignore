@@ -114,3 +114,5 @@ hs_err_pid*
 /.idea/saveactions_settings.xml
 desktop.ini
 /speedment-issue-demo.iml
+/json-alias-mismatch-demo/src/main/json/generated-model-with-aliases.json
+/json-alias-mismatch-demo/src/main/json/generated-model-without-aliases.json

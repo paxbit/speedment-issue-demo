@@ -34,7 +34,10 @@ def generatedSourcesPath = "src/main/generated"
 
 sourceSets {
   main {
-    java {      srcDirs(rootProject.ext.javaSourcePath, generatedSourcesPath)
+    java {
+      srcDirs(rootProject.ext.javaSourcePath,
+        generatedSourcesPath + "/working",
+        generatedSourcesPath + "/broken")
     }
   }
 }
@@ -60,11 +63,17 @@ def xPlatformProjectPath =
 def os = System.getProperty("os.name")
 def isWindows = os.contains("Windows")
 
-def speedmentConfigTemplate =
-  "${xPlatformProjectPath}/src/main/json/speedment.json"
+def speedmentConfigTemplateBroken =
+  "${xPlatformProjectPath}/src/main/json/model-with-aliases.json"
 
-def speedmentConfigGenerated =
-  "${xPlatformProjectPath}/src/main/json/speedment-generated.json"
+def speedmentConfigGeneratedBroken =
+  "${xPlatformProjectPath}/src/main/json/generated-model-with-aliases.json"
+
+def speedmentConfigTemplateWorking =
+  "${xPlatformProjectPath}/src/main/json/model-without-aliases.json"
+
+def speedmentConfigGeneratedWorking =
+  "${xPlatformProjectPath}/src/main/json/generated-model-without-aliases.json"
 
 def macSubProjectPathPrefix = "json-alias-mismatch-demo/"
 if (Paths.get("").toAbsolutePath().toString().equals(project(':json-alias-mismatch-demo').projectDir.absolutePath))
@@ -74,8 +83,6 @@ if (Paths.get("").toAbsolutePath().toString().equals(project(':json-alias-mismat
 def speedmentPackageLocation =
   "${isWindows ? xPlatformProjectPath + "/" : macSubProjectPathPrefix }${generatedSourcesPath}"
 
-ext.speedmentConfigFile = speedmentConfigGenerated
-
 task('createGeneratedSourcesFolder').doLast {
   file(generatedSourcesPath).mkdirs()
 }
@@ -83,18 +90,27 @@ task('createGeneratedSourcesFolder').doLast {
 
 task('speedmentGenerateModel').doLast {
 
-  file(speedmentConfigGenerated).delete()
+  file(speedmentConfigGeneratedBroken).delete()
+  file(speedmentConfigGeneratedWorking).delete()
 
   // replace #packageLocation# placeholder in speedmentConfigTemplate with actual platform specific
   // absolute location and write result to speedmentConfigGenerated which may then be used by
   // speedment.Generate task to create model classes.
-  new File(speedmentConfigGenerated).withWriter { w ->
-    new File(speedmentConfigTemplate).eachLine { line ->
-      w << line.replaceAll('#packageLocation#', speedmentPackageLocation) + '\n'
+  new File(speedmentConfigGeneratedBroken).withWriter { w ->
+    new File(speedmentConfigTemplateBroken).eachLine { line ->
+      w << line.replaceAll('#packageLocation#', speedmentPackageLocation + "/broken") + '\n'
     }
   }
 
-  new SpeedmentGenerate().execute(file(speedmentConfigGenerated))
+  new File(speedmentConfigGeneratedWorking).withWriter { w ->
+    new File(speedmentConfigTemplateWorking).eachLine { line ->
+      w << line.replaceAll('#packageLocation#', speedmentPackageLocation + "/working") + '\n'
+    }
+  }
+
+  def gen = new SpeedmentGenerate()
+  gen.execute(file(speedmentConfigGeneratedWorking))
+  gen.execute(file(speedmentConfigGeneratedBroken))
 
 }
 
@@ -102,7 +118,8 @@ compileJava.dependsOn(tasks['speedmentGenerateModel'])
 
 clean.doLast {
   file(generatedSourcesPath).deleteDir()
-  file(speedmentConfigGenerated).delete()
+  file(speedmentConfigGeneratedBroken).delete()
+  file(speedmentConfigGeneratedWorking).delete()
 }
 
 

@@ -5,7 +5,7 @@
     "expanded" : true,
     "appId" : "9c3a2595-c515-491e-ac95-94e6bd255134",
     "companyName" : "acme",
-    "name" : "issueDemo",
+    "name" : "DemoNoAliases",
     "packageLocation" : "#packageLocation#",
     "id" : "public",
     "dbmses" : [
@@ -96,9 +96,8 @@
                   }
                 ],
                 "name" : "cookie_types",
-                "alias" : "CookieTypeEntity",
-                "id" : "cookie_types",
-                "packageName" : "com.acme.issuedemo.cookietypes.schema.cookie_types",
+                                "id" : "cookie_types",
+                "packageName" : "com.acme.demonoaliases.cookietypes.schema.cookie_types",
                 "enabled" : true
               },
               {
@@ -174,23 +173,20 @@
                   }
                 ],
                 "name" : "ingredients",
-                "alias" : "IngredientsEntity",
-                "id" : "ingredients",
-                "packageName" : "com.acme.issuedemo.cookietypes.schema.ingredients"
+                                "id" : "ingredients",
+                "packageName" : "com.acme.demonoaliases.cookietypes.schema.ingredients"
               }
             ],
             "expanded" : true,
             "name" : "public",
-            "alias" : "schemaName",
-            "id" : "public",
+                        "id" : "public",
             "enabled" : true
           }
         ],
         "typeName" : "PostgreSQL",
         "ipAddress" : "127.0.0.1",
         "name" : "demo",
-        "alias" : "cookieTypes",
-        "id" : "demo",
+                "id" : "demo",
         "enabled" : true,
         "username" : "demo"
       }
