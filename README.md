@@ -47,4 +47,5 @@ java.lang.IllegalStateException: The field type from join stage 2 is not associa
   at com.speedment.runtime.join.internal.component.join.AbstractJoinBuilder.assertFieldsAreInJoinTables(AbstractJoinBuilder.java:142)
   at com.speedment.runtime.join.internal.component.join.JoinBuilder2Impl.build(JoinBuilder2Impl.java:81)
   at com.speedment.runtime.join.builder.JoinBuilder2.build(JoinBuilder2.java:48)
-  at issue.Test.testJoinFails(Test.java:40)```
+  at issue.Test.testJoinFails(Test.java:40)
+```
