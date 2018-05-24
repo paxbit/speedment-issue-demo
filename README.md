@@ -41,7 +41,8 @@ The test `testSimpleJoinBuildingDoesNotThrowISEWhenUsingNoAliases` should work.
 
 See class ```issue.Test```. The two above mentioned identification conventions seem to cause asserts
 made when building a join to fail. The relevant exception message then reads:
-```java.lang.IllegalStateException: The field type from join stage 2 is not associated with any of the tables in the join: ingredients, CookieTypeEntity
+```
+java.lang.IllegalStateException: The field type from join stage 2 is not associated with any of the tables in the join: ingredients, CookieTypeEntity
   at com.speedment.runtime.join.internal.component.join.AbstractJoinBuilder.assertFieldIn(AbstractJoinBuilder.java:154)
   at com.speedment.runtime.join.internal.component.join.AbstractJoinBuilder.assertFieldsAreInJoinTables(AbstractJoinBuilder.java:142)
   at com.speedment.runtime.join.internal.component.join.JoinBuilder2Impl.build(JoinBuilder2Impl.java:81)
